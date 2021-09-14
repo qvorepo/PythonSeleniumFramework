@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="40.704" timestamp="2021-09-14T11:06:10.110941" hostname="DESKTOP-40VLL4U"><testcase classname="test_HomePage.TestHomePage" name="test_formSubmission[get_data0]" time="15.510" /><testcase classname="test_HomePage.TestHomePage" name="test_formSubmission[get_data1]" time="4.992" /><testcase classname="test_e2e.TestOne" name="test_e2e" time="19.986"><failure message="assert 1 == 2&#10;  +1&#10;  -2">self = &lt;tests.test_e2e.TestOne object at 0x000001D87FC3ED90&gt;
+
+    def test_e2e(self):
+    
+        log = self.get_logger()
+        homePage = HomePage(self.driver)
+    
+        """ Implicitly wait is global wait."""
+        self.driver.implicitly_wait(3)
+        wait = WebDriverWait(self.driver, 7)
+    
+        checkoutPage = homePage.shopItems()
+        cards = checkoutPage.get_card_titles()
+        log.info("Getting all the card titles.")
+    
+        i = -1
+        for card in cards:
+            i = i+1
+            card_text = card.text
+    
+            log.info(card.text)
+            if card.text == 'Blackberry':
+                checkoutPage.get_card_footer()[i].click()
+                # Shopping cart
+                checkoutPage.get_shopping_cart().click()
+    
+                assert checkoutPage.get_cart_details().text == 'Blackberry'
+                confirmPage = checkoutPage.checkout_items()
+    
+                confirmPage.get_country_input().send_keys("Ind")
+                log.info("Entering country name as 'Ind'")
+                #wait.until(expected_conditions.presence_of_element_located((By.XPATH, "//a[contains(text(),'India')]")))
+                self.verifyLinkPresence('India')
+    
+                self.select_location("India").click() #confirmPage.select_location_india()
+                confirmPage.purchase_items()
+                confirmPage.validate_checkout_success()
+                log.info(("Received confirm message " + confirmPage.get_confirm_msg().text))
+    
+&gt;               assert 1 == 2
+E               assert 1 == 2
+E                 +1
+E                 -2
+
+test_e2e.py:55: AssertionError</failure></testcase></testsuite></testsuites>
