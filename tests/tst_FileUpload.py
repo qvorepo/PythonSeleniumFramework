@@ -8,8 +8,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 class TestFileUpload:
 
-    @pytest.mark.smoke
-    def test_file_upload(self):
+    #@pytest.mark.smoke
+    def tst_file_upload(self):
 
         """ 8/31/2021 Both Chrome and Gecko drivers were able to launch the Chrome and Fifefox browsers.  Woila """
         driver = webdriver.Chrome(executable_path='C:\\Users\\qtvo9\\Dropbox\\Tools\\Selenium\\Driver\\chromedriver.exe')

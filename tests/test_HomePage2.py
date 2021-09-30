@@ -9,7 +9,7 @@ from util.BaseClass import BaseClass
 
 class TestHomePage(BaseClass):
 
-    def test_formSubmission(self, get_data):
+    def test_form_submission2(self, get_data):
         log = self.get_logger()
         homePage = HomePage(self.driver)
 

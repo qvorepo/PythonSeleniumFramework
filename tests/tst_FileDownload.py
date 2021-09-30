@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions
 class TestFileDownload:
 
     @pytest.mark.smoke
-    def test_file_download(self):
+    def tst_file_download(self):
 
         #fp = webdriver.FirefoxProfile()
         #fp.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/plain, application/pdf")
