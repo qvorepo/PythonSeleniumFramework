@@ -4,24 +4,33 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+from util.configurations import Configurations
+from pathlib import Path
 
 driver = None
-
 
 @pytest.fixture(scope='class')
 def setup(request):
 
+    """ Get the drivers from the config ini file"""
+    instance = Configurations()
+    cfg = instance.config
     global driver
+
     browser_name = request.config.getoption("--browser_name")
     if browser_name == 'chrome':
-        driver = webdriver.Chrome(executable_path='C:\\Users\\qtvo9\\Dropbox\\Tools\\Selenium\\Driver\\chromedriver.exe')
+        #driver = webdriver.Chrome(executable_path='C:\\Users\\qtvo9\\Dropbox\\Tools\\Selenium\\Driver\\chromedriver.exe')
+        driver = webdriver.Chrome(executable_path=cfg['default']['chrome_driver_path'])
     elif browser_name == 'firefox':
         driver = webdriver.Firefox(
-            executable_path='C:\\Users\\qtvo9\\Dropbox\\Tools\\Selenium\\Driver\\geckodriver.exe')
+            executable_path=cfg['default']['firefox_driver_path'])
     elif browser_name == 'IE':
-        driver = webdriver.Ie(executable_path='C:\\Users\\qtvo9\\Dropbox\\Tools\\Selenium\\Driver\\IEDriverServer.exe')
+        driver = webdriver.Ie(executable_path=cfg['default']['IE_driver_path'])
 
-    driver.get('https://rahulshettyacademy.com/angularpractice/')
+    #driver.get('https://rahulshettyacademy.com/angularpractice/')
+    driver.get(cfg['default']['url'])
+    #driver.implicitly_wait(3)
+    driver.implicitly_wait(cfg['default']['wait_time'])
     driver.maximize_window()
     request.cls.driver = driver
 
